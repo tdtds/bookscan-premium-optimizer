@@ -5,6 +5,7 @@ gem 'thin'
 gem 'haml'
 gem 'mongoid'
 gem 'bson_ext'
+gem 'rack_csrf'
 gem 'algorithm-genetic', path: '../algorithm-genetic'
 
 group :development, :test do
