@@ -8,33 +8,33 @@ require 'helpers/amazon'
 describe 'BookscanPremiumOptimizer::Amazon' do
 	def good_book; '978-4757541450'; end
 	def fail_book; '978-4757541443'; end
-	describe 'constructor' do
-		it('Good book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(good_book).xml).to match /<NumberOfPages>198</
+
+	before do
+		@good_book = BookscanPremiumOptimizer::Amazon.new(good_book)
+		@fail_book = BookscanPremiumOptimizer::Amazon.new(fail_book)
+	end
+
+	describe 'good book' do
+		it('#xml') {
+			expect(@good_book.xml).to match /<NumberOfPages>198</
 		}
-		it('Fail book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(fail_book).xml).not_to match /<NumberOfPages>/
+		it('#pages') {
+			expect(@good_book.pages).to eq 198
+		}
+		it('#title') {
+			expect(@good_book.title).to match /ガールズ ニュージェネレーションズ/
+		}
+		it('#url') {
+			expect(@good_book.url).to match 'cshs-22'
 		}
 	end
 
-	describe 'pages' do
-		it('Good book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(good_book).pages).to eq 198
+	describe 'Fail book' do
+		it('#xml') {
+			expect(@fail_book.xml).not_to match /<NumberOfPages>/
 		}
-		it('Fail book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(fail_book).pages).to eq nil
-		}
-	end
-
-	describe 'title' do
-		it('Good book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(good_book).title).to match /ガールズ ニュージェネレーションズ/
-		}
-	end
-
-	describe 'url' do
-		it('Good book') {
-			expect(BookscanPremiumOptimizer::Amazon.new(good_book).url).to match 'cshs-22'
+		it('#pages') {
+			expect(@fail_book.pages).to eq nil
 		}
 	end
 end
