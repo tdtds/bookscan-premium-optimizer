@@ -9,6 +9,7 @@ require 'rack/csrf'
 
 require_relative 'helpers/book'
 require_relative 'helpers/booklist'
+require_relative 'models/candidate'
 
 module BookscanPremiumOptimizer
 	class App < Sinatra::Base
@@ -27,12 +28,25 @@ module BookscanPremiumOptimizer
 			disable :protection
 			set :logging, ::Logger::DEBUG
 			Mongoid::Config.load_configuration({
-				sessions: {default: {uri: 'mongodb://localhost:27017/mrat'}}
+				sessions: {default: {uri: 'mongodb://localhost:27017/bpo'}}
 			})
 		end
 
 		get '/' do
 			haml :index
+		end
+
+		post '/' do
+			candidate = Candidate.new_list
+			redirect "/#{candidate.id}"
+		end
+
+		get '/:id' do
+			id = params[:id]
+			candidate = Candidate.where(id: id).first
+			return 404 unless candidate
+			p candidate.title
+			haml :list
 		end
 	end
 end
