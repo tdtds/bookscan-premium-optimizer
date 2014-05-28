@@ -9,7 +9,7 @@ describe 'BookscanPremiumOptimizer::Amazon' do
 	def good_book; '978-4757541450'; end
 	def fail_book; '978-4757541443'; end
 
-	before do
+	before :all do
 		@good_book = BookscanPremiumOptimizer::Amazon.new(good_book)
 		@fail_book = BookscanPremiumOptimizer::Amazon.new(fail_book)
 	end

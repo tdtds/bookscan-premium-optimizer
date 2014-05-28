@@ -10,7 +10,7 @@ describe 'BookscanPremiumOptimizer::Booklist' do
 	Booklist = BookscanPremiumOptimizer::Booklist
 
 	describe 'Booklist.pack' do
-		before do
+		before(:all) do
 			@all = Array.new(100) {|i|
 				pages = i * 10 + 300
 				Book.new("book-#{'%03d' % pages}", '', pages)
