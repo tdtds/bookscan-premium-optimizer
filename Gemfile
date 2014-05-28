@@ -6,7 +6,7 @@ gem 'haml'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'rack_csrf'
-gem 'algorithm-genetic', path: '../algorithm-genetic'
+gem 'algorithm-genetic'
 
 group :development, :test do
 	gem 'rake'
