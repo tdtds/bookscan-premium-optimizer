@@ -6,10 +6,10 @@
 		%script{src: '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'}
 		%script{src: '/js/main.js'}
 		%link{rel: 'stylesheet', href: '/css/main.css', type: 'text/css'}
-	%body
+	%body{id: booklist_id}
 		%h1 BOOKSCAN Premium Optimizer
 		#main
 			#boxes
-			%form
-				%input#newbook{}
+			%form#add-isbn
+				%input#newbook{placeholder: 'ISBN'}
 				%input{type: 'submit', value: '+'}

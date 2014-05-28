@@ -7,12 +7,15 @@ require 'json'
 require 'mongoid'
 require 'rack/csrf'
 
+require_relative 'helpers/amazon'
 require_relative 'helpers/book'
 require_relative 'helpers/booklist'
 require_relative 'models/candidate'
 
 module BookscanPremiumOptimizer
 	class App < Sinatra::Base
+		BOOKS = {}
+
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
 
@@ -32,21 +35,53 @@ module BookscanPremiumOptimizer
 			})
 		end
 
+		def booklist(candidate)
+			books = candidate.isbns.map do |isbn|
+				amazon = BOOKS[isbn]
+				unless amazon
+					amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
+					BOOKS[isbn] = amazon
+				end
+				BookscanPremiumOptimizer::Book.new(amazon.title, amazon.url, amazon.pages)
+			end
+			BookscanPremiumOptimizer::Booklist.pack(books, true)
+		end
+
 		get '/' do
 			haml :index
 		end
 
 		post '/' do
 			candidate = Candidate.new_list
+			p candidate
 			redirect "/#{candidate.id}"
 		end
 
 		get '/:id' do
-			id = params[:id]
-			candidate = Candidate.where(id: id).first
+			booklist_id = params[:id]
+			candidate = Candidate.where(id: booklist_id).first
 			return 404 unless candidate
-			p candidate.title
-			haml :list
+			haml :list, locals: {booklist_id: booklist_id}
+		end
+
+		put '/:id' do
+			booklist_id = params[:id]
+			candidate = Candidate.where(id: booklist_id).first
+			return 404 unless candidate
+
+			isbn = params[:isbn]
+			candidate.add(isbn)
+			list = booklist(candidate)
+			return list.to_json
+		end
+
+		get '/:id/list' do
+			booklist_id = params[:id]
+			candidate = Candidate.where(id: booklist_id).first
+			return 404 unless candidate
+
+			list = booklist(candidate)
+			return list.to_json
 		end
 	end
 end
