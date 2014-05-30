@@ -2,9 +2,41 @@
 # booklist helper
 #
 
+require 'algorithm/genetic'
+require 'algorithm/genetic/selection/elite'
+require 'algorithm/genetic/crossover/order'
+require 'algorithm/genetic/mutation/swap'
 require_relative 'book'
 
 module BookscanPremiumOptimizer
+	class BookscanEvaluator < Algorithm::Genetic::Evaluator
+		def initialize(max = 10)
+			@max = max
+		end
+	
+		def fitness(gene)
+			boxes = 1
+			count = 0
+			pages = 0
+			gene.code.each do |book|
+				if count + book.count > @max
+					boxes += 1
+					count = 0
+					pages = 0
+				end
+				count += book.count
+				pages += book.pages
+			end
+			return -((boxes * 100.0) + count + (pages / 100000.0))
+		end
+	
+		def terminated?(gene)
+			# cannot know termination by gene.
+			# stop yourself by limitation of generation count
+			return false
+		end
+	end
+
 	module Booklist
 		def self.pack(list, lite = false)
 			max = lite ? 10 : 50
@@ -13,11 +45,21 @@ module BookscanPremiumOptimizer
 			count = list.inject(0){|count, book| count += book.count}
 			return [list] if count <= max
 
-			# over 1 box
+			# over 1 box, using GA
+			groups = 10
+			population = Algorithm::Genetic::Population.new(
+				groups, BookscanEvaluator.new(max),
+				selection: [:elite, groups - 2],
+				crossover: [:order],
+				mutation: [:swap],
+				mutation_chance: 0.3
+			){list.shuffle}
+			1000.times{population.generate}
+
 			boxes = []
 			tmp = []
 			count = 0
-			list.dup.each do |book|
+			population.first.code.each do |book|
 				if count + book.count > max
 					boxes << tmp
 					tmp = []
