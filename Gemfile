@@ -7,6 +7,7 @@ gem 'mongoid'
 gem 'bson_ext'
 gem 'rack_csrf'
 gem 'algorithm-genetic'
+gem 'dalli'
 
 group :development, :test do
 	gem 'rake'

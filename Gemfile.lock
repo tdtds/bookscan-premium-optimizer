@@ -18,6 +18,7 @@ GEM
     builder (3.0.4)
     coderay (1.1.0)
     daemons (1.1.9)
+    dalli (2.7.2)
     diff-lcs (1.2.5)
     eventmachine (1.0.3)
     haml (4.0.5)
@@ -80,6 +81,7 @@ DEPENDENCIES
   algorithm-genetic
   autotest
   bson_ext
+  dalli
   haml
   mongoid
   pry

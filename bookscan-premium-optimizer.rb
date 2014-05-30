@@ -6,6 +6,7 @@ require 'haml'
 require 'json'
 require 'mongoid'
 require 'rack/csrf'
+require 'dalli'
 
 require_relative 'helpers/amazon'
 require_relative 'helpers/book'
@@ -14,8 +15,6 @@ require_relative 'models/candidate'
 
 module BookscanPremiumOptimizer
 	class App < Sinatra::Base
-		BOOKS = {}
-
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
 
@@ -23,6 +22,11 @@ module BookscanPremiumOptimizer
 			Mongoid::Config.load_configuration({
 				sessions: {default: {uri: ENV['MONGOLAB_URI']}}
 			})
+			set :cache, Dalli::Client.new(
+				ENV["MEMCACHIER_SERVERS"],
+				:username => ENV["MEMCACHIER_USERNAME"],
+				:password => ENV["MEMCACHIER_PASSWORD"],
+				:expires_in => 24 * 60 * 60)
 		end
 
 		configure :development, :test do
@@ -33,14 +37,15 @@ module BookscanPremiumOptimizer
 			Mongoid::Config.load_configuration({
 				sessions: {default: {uri: 'mongodb://localhost:27017/bpo'}}
 			})
+			set :cache, Dalli::Client.new(nil, :expires_in => 24 * 60 * 60)
 		end
 
 		def booklist(candidate)
 			books = candidate.isbns.map do |isbn|
-				amazon = BOOKS[isbn]
+				amazon = settings.cache.get(isbn)
 				unless amazon
 					amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
-					BOOKS[isbn] = amazon
+					settings.cache.set(isbn, amazon)
 				end
 				BookscanPremiumOptimizer::Book.new(amazon.title, amazon.url, amazon.pages)
 			end
