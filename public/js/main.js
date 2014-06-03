@@ -28,7 +28,7 @@ $(function(){
 				var $delete = $('<a>').addClass('delete-book').attr('href', '#').text('×');
 				var $title = $('<span>').text(this.title);
 				var $link = $('<a>').attr('href', this.url).append($title);
-				var $pages = $('<span>').text('[' + this.pages + ']');
+				var $pages = $('<span>').addClass('pages').text(this.pages);
 				$book.append($delete).append($link).append($pages);
 				$box.append($book);
 				totalPages += this.pages;

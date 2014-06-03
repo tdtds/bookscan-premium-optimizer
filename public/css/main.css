@@ -34,6 +34,13 @@ h1 {
 	text-decoration: none;
 }
 
+.pages {
+	font-size: x-small;
+	padding-left: 0.5em;
+}
+.pages:before { content: "[" }
+.pages:after  { content: "p]" }
+
 .total-pages {
 	text-align: right;
 	font-size: small;
