@@ -13,9 +13,24 @@ h1 {
 	font-size: medium;
 }
 
+h1.top {
+	font-size: x-large;
+	text-align: center;
+}
+
 #main {
 	margin: 0 auto;
 	max-width: 900px;
+}
+
+#new-list {
+	text-align: center;
+}
+
+#new-list input {
+	font-size: large;
+	font-weight: bold;
+	padding: 8px;
 }
 
 .box {

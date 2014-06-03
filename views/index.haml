@@ -7,7 +7,18 @@
 		%script{src: '/js/main.js'}
 		%link{rel: 'stylesheet', href: '/css/main.css', type: 'text/css'}
 	%body
-		%h1 BOOKSCAN Premium Optimizer
+		%h1.top BOOKSCAN Premium Optimizer
 		#main
-			%form{method: 'post', action: '/'}
+			%p.desc
+				BOOKSCANのプレミアムサービスの制限に合わせて、一箱に収まる
+				ちょうど良い冊数を計算してくれるWebサービスです。
+				BOOKSCANに送りたい本のISBNを入力していくと、Amazonにある
+				ページ数の情報を元にして一箱に入るかどうか計算します。
+			%p.desc
+				一箱を超えると二箱目に振り分けますが、そのときはもっとも
+				お得になるように遺伝的アルゴリズムを使って分配します。
+			%p.desc
+				現在サポートしているのはBOOKSCANのプレミアム・ライト(1回10冊相当)です。
+				スタンダードプランの50冊には対応していません。
+			%form#new-list{method: 'post', action: '/'}
 				%input{type: 'submit', value: '新しいリストを作る'}
