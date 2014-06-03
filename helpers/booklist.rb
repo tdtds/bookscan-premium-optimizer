@@ -15,19 +15,19 @@ module BookscanPremiumOptimizer
 		end
 	
 		def fitness(gene)
-			boxes = 1
+			fit = 0.0
 			count = 0
 			pages = 0
 			gene.code.each do |book|
 				if count + book.count > @max
-					boxes += 1
+					fit = fit * 10000 + pages
 					count = 0
 					pages = 0
 				end
 				count += book.count
 				pages += book.pages
 			end
-			return -((boxes * 100.0) + count + (pages / 100000.0))
+			return fit + (pages / 10000.0)
 		end
 	
 		def terminated?(gene)

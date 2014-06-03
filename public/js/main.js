@@ -22,6 +22,7 @@ $(function(){
 	function replaceList(list){
 		$.each(list, function(){
 			var $box = $('<div>').addClass('box');
+			var totalPages = 0;
 			$.each(this, function(){
 				var $book = $('<div>').addClass('book');
 				var $title = $('<span>').text(this.title);
@@ -29,8 +30,10 @@ $(function(){
 				var $pages = $('<span>').text('[' + this.pages + ']');
 				$book.append($link).append($pages);
 				$box.append($book);
+				totalPages += this.pages;
 			});
-			$('#boxes').append($box);
+			var $total = $('<div>').addClass('total-pages').text('total ' + totalPages + ' pages');
+			$('#boxes').append($box.append($total));
 		});
 	};
 
