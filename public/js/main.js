@@ -44,12 +44,14 @@ $(function(){
 	$.getJSON('/' + $('body').attr('id') + '/list', function(json){
 		replaceList(json);
 	});
+	$('#newbook').focus();
 
 	/*
 	 * add new book
 	 */
 	$('#add-isbn').on('submit', function(){
 		var isbn = $('#newbook').val();
+		$('#newbook-submit').attr('disabled', true);
 		$.ajax({
 			type: 'PUT',
 			url: '/' + $('body').attr('id'),
@@ -59,6 +61,9 @@ $(function(){
 			$('#boxes').text('');
 			replaceList(json);
 			$('#newbook').val('');
+			$('#newbook-submit').attr('disabled', false);
+		}).fail(function(){
+			$('#newbook-submit').attr('disabled', false);
 		});
 		return false;
 	});
