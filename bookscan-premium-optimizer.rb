@@ -47,7 +47,7 @@ module BookscanPremiumOptimizer
 					amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
 					settings.cache.set(isbn, amazon)
 				end
-				BookscanPremiumOptimizer::Book.new(amazon.title, amazon.url, amazon.pages)
+				BookscanPremiumOptimizer::Book.new(amazon.title, amazon.url, amazon.pages, isbn)
 			end
 			BookscanPremiumOptimizer::Booklist.pack(books, true)
 		end
@@ -78,6 +78,15 @@ module BookscanPremiumOptimizer
 			candidate.add(isbn)
 			list = booklist(candidate)
 			return list.to_json
+		end
+
+		delete '/:id/:isbn' do
+			booklist_id = params[:id]
+			candidate = Candidate.where(id: booklist_id).first
+			return 404 unless candidate
+
+			isbn = params[:isbn]
+			return booklist(candidate.delete(isbn)).to_json
 		end
 
 		get '/:id/list' do

@@ -19,9 +19,23 @@ module BookscanPremiumOptimizer
 		end
 
 		def add(isbn)
-			self.isbns << isbn.strip.gsub(/-/, '')
+			isbn = canonical isbn
+			unless self.isbns.index(isbn)
+				self.isbns << canonical(isbn)
+				save
+			end
+			return self
+		end
+
+		def delete(isbn)
+			self.isbns.delete(canonical isbn)
 			save
 			return self
+		end
+
+	private
+		def canonical(isbn)
+			isbn.strip.gsub(/-/, '')
 		end
 	end
 end

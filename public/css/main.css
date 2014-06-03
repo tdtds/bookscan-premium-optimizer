@@ -28,6 +28,12 @@ h1 {
 	margin: 0.8em 0em;
 }
 
+.delete-book {
+	visibility: hidden;
+	margin-right: 0.5em;
+	text-decoration: none;
+}
+
 .total-pages {
 	text-align: right;
 	font-size: small;

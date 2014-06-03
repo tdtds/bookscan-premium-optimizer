@@ -4,10 +4,10 @@
 
 module BookscanPremiumOptimizer
 	class Book
-		attr_reader :title, :url, :pages
+		attr_reader :title, :url, :pages, :isbn
 
-		def initialize(title, url, pages)
-			@title, @url, @pages = title, url, pages
+		def initialize(title, url, pages, isbn)
+			@title, @url, @pages, @isbn = title, url, pages, isbn
 		end
 
 		def count

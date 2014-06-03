@@ -24,11 +24,12 @@ $(function(){
 			var $box = $('<div>').addClass('box');
 			var totalPages = 0;
 			$.each(this, function(){
-				var $book = $('<div>').addClass('book');
+				var $book = $('<div>').addClass('book').attr('id', 'isbn-' + this.isbn);
+				var $delete = $('<a>').addClass('delete-book').attr('href', '#').text('×');
 				var $title = $('<span>').text(this.title);
 				var $link = $('<a>').attr('href', this.url).append($title);
 				var $pages = $('<span>').text('[' + this.pages + ']');
-				$book.append($link).append($pages);
+				$book.append($delete).append($link).append($pages);
 				$box.append($book);
 				totalPages += this.pages;
 			});
@@ -58,6 +59,28 @@ $(function(){
 			$('#boxes').text('');
 			replaceList(json);
 			$('#newbook').val('');
+		});
+		return false;
+	});
+
+	/*
+	 * delete a book
+	 */
+	$(document).on('mouseenter', '.book', function(){
+		$('.delete-book', this).css('visibility', 'visible');
+	});
+	$(document).on('mouseleave', '.book', function(){
+		$('.delete-book', this).css('visibility', 'hidden');
+	});
+	$(document).on('click', '.delete-book', function(){
+		var isbn = $(this).parent().attr('id').substr(5);
+		$.ajax({
+			type: 'DELETE',
+			url: '/' + $('body').attr('id') + '/' + isbn,
+			dataType: 'json'
+		}).done(function(json){
+			$('#boxes').text('');
+			replaceList(json);
 		});
 		return false;
 	});
