@@ -41,12 +41,13 @@ module BookscanPremiumOptimizer
 		end
 
 		def amazon(isbn)
-			amazon = settings.cache.get(isbn)
-			unless amazon
-				amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
-				settings.cache.set(amazon.isbn, amazon)
+			a = settings.cache.get(isbn)
+			unless a
+				puts "getting book data from amazon (#{isbn})."
+				a = BookscanPremiumOptimizer::Amazon.new(isbn)
+				settings.cache.set(a.isbn, a)
 			end
-			return amazon
+			return a
 		end
 
 		def booklist(candidate)
