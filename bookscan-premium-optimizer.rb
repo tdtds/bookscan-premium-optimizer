@@ -40,16 +40,25 @@ module BookscanPremiumOptimizer
 			set :cache, Dalli::Client.new(nil, :expires_in => 24 * 60 * 60)
 		end
 
+		def amazon(isbn)
+			amazon = settings.cache.get(isbn)
+			unless amazon
+				amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
+				settings.cache.set(amazon.isbn, amazon)
+			end
+			return amazon
+		end
+
 		def booklist(candidate)
 			books = candidate.isbns.map do |isbn|
-				amazon = settings.cache.get(isbn)
-				unless amazon
-					amazon = BookscanPremiumOptimizer::Amazon.new(isbn)
-					settings.cache.set(isbn, amazon)
+				begin
+					a = amazon(isbn)
+					BookscanPremiumOptimizer::Book.new(a.title, a.url, a.pages, a.isbn)
+				rescue AmazonError
+					nil
 				end
-				BookscanPremiumOptimizer::Book.new(amazon.title, amazon.url, amazon.pages, isbn)
 			end
-			BookscanPremiumOptimizer::Booklist.pack(books, true)
+			BookscanPremiumOptimizer::Booklist.pack(books.compact, true)
 		end
 
 		get '/' do
@@ -75,9 +84,13 @@ module BookscanPremiumOptimizer
 			return 404 unless candidate
 
 			isbn = params[:isbn]
-			candidate.add(isbn)
-			list = booklist(candidate)
-			return list.to_json
+			begin
+				a = amazon(isbn)
+				candidate.add(a.isbn)
+				return booklist(candidate).to_json
+			rescue AmazonError
+				return 404
+			end
 		end
 
 		delete '/:id/:isbn' do

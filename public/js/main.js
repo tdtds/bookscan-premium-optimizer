@@ -39,6 +39,16 @@ $(function(){
 	};
 
 	/*
+	 * show message
+	 */
+	function message(str){
+		$('#message').text(str).show();
+		setTimeout(function(){
+			$('#message').hide();
+		}, 5000);
+	}
+
+	/*
 	 * init list
 	 */
 	$.getJSON('/' + $('body').attr('id') + '/list', function(json){
@@ -62,8 +72,11 @@ $(function(){
 			replaceList(json);
 			$('#newbook').val('');
 			$('#newbook-submit').attr('disabled', false);
-		}).fail(function(){
+		}).fail(function(XMLHttpRequest, textStatus, errorThrown){
 			$('#newbook-submit').attr('disabled', false);
+			if(XMLHttpRequest.status == 404){
+				message("ISBNが正しくない可能性があります")
+			}
 		});
 		return false;
 	});

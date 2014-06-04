@@ -6,6 +6,8 @@ require 'open-uri'
 require 'rexml/document'
 
 module BookscanPremiumOptimizer
+	class AmazonError < StandardError; end
+
 	class Amazon
 		SUBSCRIPTION_ID = '1CVA98NEF1G753PFESR2'
 		REQUIRE_VERSION = '2011-08-01'
@@ -13,36 +15,50 @@ module BookscanPremiumOptimizer
 
 		attr_reader :xml
 
+		def self.canonical(isbn)
+			isbn.strip.gsub(/-/, '')
+		end
+
 		def initialize(isbn, aid = 'cshs-22')
 			@xml = build_url(isbn, aid)
 			@doc = REXML::Document::new( @xml ).root.elements
+
+			isbn()
+			pages()
+			title()
+			url()
+		end
+
+		def isbn
+			begin
+				return @isbn ||= @doc.to_a('*/Item/*/ISBN').first.text
+			rescue NoMethodError
+				raise AmazonError.new('no ISBN')
+			end
 		end
 
 		def pages
 			begin
-				@pages ||= @doc.to_a('*/Item/*/NumberOfPages').first.text.to_i
+				return @pages ||= @doc.to_a('*/Item/*/NumberOfPages').first.text.to_i
 			rescue NoMethodError
-				@pages = nil
+				raise AmazonError.new('no pages')
 			end
-			return @pages
 		end
 
 		def title
 			begin
-				@title ||= @doc.to_a('*/Item/*/Title').first.text
+				return @title ||= @doc.to_a('*/Item/*/Title').first.text
 			rescue NoMethodError
-				@title = nil
+				raise AmazonError.new('no title')
 			end
-			return @title
 		end
 
 		def url
 			begin
-				@url ||= @doc.to_a('*/Item/DetailPageURL').first.text
+				return @url ||= @doc.to_a('*/Item/DetailPageURL').first.text
 			rescue NoMethodError
-				@url = nil
+				raise AmazonError.new('no URL')
 			end
-			return @url
 		end
 
 	private

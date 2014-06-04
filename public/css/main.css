@@ -60,3 +60,8 @@ h1.top {
 	text-align: right;
 	font-size: small;
 }
+
+#message {
+	display: none;
+	color: #d00;
+}
