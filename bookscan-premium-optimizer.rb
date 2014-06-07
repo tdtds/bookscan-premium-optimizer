@@ -46,6 +46,7 @@ module BookscanPremiumOptimizer
 				puts "getting book data from amazon (#{isbn})."
 				a = BookscanPremiumOptimizer::Amazon.new(isbn)
 				settings.cache.set(a.isbn, a)
+				settings.cache.set(isbn, a) if isbn != a.isbn
 			end
 			return a
 		end

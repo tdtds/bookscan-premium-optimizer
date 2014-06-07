@@ -31,7 +31,7 @@ module BookscanPremiumOptimizer
 
 		def isbn
 			begin
-				return @isbn ||= @doc.to_a('*/Item/*/ISBN').first.text
+				return @isbn ||= (@doc.to_a('*/Item/*/EAN').first || @doc.to_a('*/Item/*/ISBN').first).text
 			rescue NoMethodError
 				raise AmazonError.new('no ISBN')
 			end
