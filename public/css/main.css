@@ -33,14 +33,32 @@ h1.top {
 	padding: 8px;
 }
 
-.box {
+.box-border {
 	background-color: #fefefe;
 	border-style: solid;
 	border-color: #000;
 	border-width: 1px;
 	border-radius: 4px;
-	padding: 8px;
 	margin: 0.8em 0em;
+}
+
+.box {
+	border-style: solid;
+	border-width: 0px 0px 0px 8px;
+	border-radius: 4px;
+	padding: 8px;
+}
+
+.box-green {
+	border-color: green;
+}
+
+.box-yellow {
+	border-color: #000 yellow;
+}
+
+.box-red {
+	border-color: #000 red;
 }
 
 .delete-book {

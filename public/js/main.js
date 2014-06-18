@@ -17,11 +17,23 @@ $(function(){
 	});
 
 	/*
+	 * count book size
+	 */
+	function countBookSize(pages){
+		if(pages <= 350){
+			return 1;
+		}else{
+			return Math.ceil((pages - 350) / 200.0) + 1;
+		}
+	}
+
+	/*
 	 * replace list
 	 */
 	function replaceList(list){
 		$.each(list, function(){
 			var $box = $('<div>').addClass('box');
+			var count = 0;
 			var totalPages = 0;
 			$.each(this, function(){
 				var $book = $('<div>').addClass('book').attr('id', 'isbn-' + this.isbn);
@@ -31,10 +43,21 @@ $(function(){
 				var $pages = $('<span>').addClass('pages').text(this.pages);
 				$book.append($delete).append($link).append($pages);
 				$box.append($book);
+				count += countBookSize(this.pages);
 				totalPages += this.pages;
 			});
-			var $total = $('<div>').addClass('total-pages').text('total ' + totalPages + ' pages');
-			$('#boxes').append($box.append($total));
+			var $total = $('<div>').addClass('total-pages').text('' + count + '冊 / ' + totalPages + 'ページ');
+			$box.append($total);
+
+			var $boxBorder = $('<div>').addClass('box-border').append($box);
+			if(count < 8){
+				$box.addClass('box-green');
+			}else if(count < 10){
+				$box.addClass('box-yellow');
+			}else{
+				$box.addClass('box-red');
+			}
+			$('#boxes').append($boxBorder);
 		});
 	};
 
