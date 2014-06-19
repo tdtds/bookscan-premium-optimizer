@@ -41,26 +41,27 @@ module BookscanPremiumOptimizer
 		end
 
 		def amazon(isbn)
-			a = settings.cache.get(isbn)
-			unless a
-				puts "getting book data from amazon (#{isbn})."
-				a = BookscanPremiumOptimizer::Amazon.new(isbn)
-				settings.cache.set(a.isbn, a)
-				settings.cache.set(isbn, a) if isbn != a.isbn
-			end
-			return a
+			amazon = settings.cache.get(isbn)
+			return amazon if amazon
+
+			AmazonPool.add(isbn, settings.cache);
+			raise AmazonTimeout.new('no amazon data in cache, retry.');
 		end
 
 		def booklist(candidate)
+			timeout = nil
 			books = candidate.isbns.map do |isbn|
 				begin
 					a = amazon(isbn)
 					BookscanPremiumOptimizer::Book.new(a.title, a.url, a.pages, a.isbn)
 				rescue AmazonError
 					nil
+				rescue AmazonTimeout => e
+					timeout = e
 				end
 			end
-			BookscanPremiumOptimizer::Booklist.pack(books.compact, true)
+			raise timeout if timeout
+			return BookscanPremiumOptimizer::Booklist.pack(books.compact, true)
 		end
 
 		get '/' do
@@ -69,7 +70,6 @@ module BookscanPremiumOptimizer
 
 		post '/' do
 			candidate = Candidate.new_list
-			p candidate
 			redirect "/#{candidate.id}"
 		end
 
@@ -109,8 +109,11 @@ module BookscanPremiumOptimizer
 			candidate = Candidate.where(id: booklist_id).first
 			return 404 unless candidate
 
-			list = booklist(candidate)
-			return list.to_json
+			begin
+				return booklist(candidate).to_json
+			rescue AmazonTimeout
+				return 408 # Timeout
+			end
 		end
 	end
 end

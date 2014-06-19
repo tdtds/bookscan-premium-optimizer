@@ -72,12 +72,41 @@ $(function(){
 	}
 
 	/*
+	 * retrying show list
+	 */
+	function retryShowList(retryCount){
+		if(retryCount >= 100){
+			return false;
+		}
+
+		message('書籍データを取得中...');
+		setTimeout(function(){
+			$.ajax({
+				url: '/' + $('body').attr('id') + '/list',
+				type: 'GET',
+				dataType: 'json',
+				cache: false
+			}).done(function(json){
+				replaceList(json);
+				$('#newbook').focus();
+			}).fail(function(XMLHttpRequest, textStatus, errorThrown){
+				retryShowList(retryCount + 1);
+			});
+		}, 1000);
+		return true;
+	}
+
+	/*
 	 * init list
 	 */
-	$.getJSON('/' + $('body').attr('id') + '/list', function(json){
+	$.getJSON('/' + $('body').attr('id') + '/list').done(function(json){
 		replaceList(json);
+		$('#newbook').focus();
+	}).fail(function(XMLHttpRequest, textStatus, errorThrown){
+		if(XMLHttpRequest.status == 408){
+			retryShowList(0);
+		}
 	});
-	$('#newbook').focus();
 
 	/*
 	 * add new book
