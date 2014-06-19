@@ -55,11 +55,22 @@ module BookscanPremiumOptimizer
 			end
 		end
 
+		def convert2long(candidate, isbns)
+			isbns.map do |short, long|
+				candidate.delete(short)
+				candidate.add(long)
+			end
+		end
+
 		def booklist(candidate, async = true)
 			timeout = nil
+			convert = {}
 			books = candidate.isbns.map do |isbn|
 				begin
 					a = amazon(isbn, async)
+					if isbn.length < 13 # convert short ISBN to long
+						convert[isbn] = a.isbn
+					end
 					BookscanPremiumOptimizer::Book.new(a.title, a.url, a.pages, a.isbn)
 				rescue AmazonError
 					nil
@@ -67,6 +78,7 @@ module BookscanPremiumOptimizer
 					timeout = e
 				end
 			end
+			convert2long(candidate, convert)
 			raise timeout if timeout
 			return BookscanPremiumOptimizer::Booklist.pack(books.compact, true)
 		end
