@@ -13,9 +13,9 @@ module BookscanPremiumOptimizer
 	class AmazonTimeout < StandardError; end
 
 	class Amazon
-		SUBSCRIPTION_ID = '1CVA98NEF1G753PFESR2'
-		REQUIRE_VERSION = '2011-08-01'
-		RPA_PROXY = 'http://rpaproxy.tdiary.org/rpaproxy/jp/'
+		SUBSCRIPTION_ID = '1CVA98NEF1G753PFESR2'.freeze
+		REQUIRE_VERSION = '2011-08-01'.freeze
+		RPA_PROXY = 'http://rpaproxy.tdiary.org/rpaproxy/jp/'.freeze
 
 		attr_reader :xml
 
