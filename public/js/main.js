@@ -97,16 +97,67 @@ $(function(){
 	}
 
 	/*
+	 * load recent list
+	 */
+	function loadRecentList(){
+		var json = localStorage['recentList'];
+		var recents = [];
+		if(json){
+			recents = JSON.parse(json)
+		}
+		return recents;
+	}
+
+	/*
+	 * add list to recent list
+	 */
+	function addRecentList(newList){
+		var recents = loadRecentList();
+		if(!newList){
+			return recents;
+		}
+
+		var dup = recents.indexOf(newList);
+		if(dup != -1){
+			recents.splice(dup, 1);
+		}
+		if(recents.length >= 5){
+			recents.splice(4, recents.length - 4);
+		}
+		recents.splice(0, 0, newList);
+		localStorage['recentList'] = JSON.stringify(recents);
+		return recents;
+	}
+
+	/*
 	 * init list
 	 */
-	$.getJSON('/' + $('body').attr('id') + '/list').done(function(json){
-		replaceList(json);
-		$('#newbook').focus();
-	}).fail(function(XMLHttpRequest, textStatus, errorThrown){
-		if(XMLHttpRequest.status == 408){
-			retryShowList(0);
-		}
+	if($('#newbook').length > 0){
+		$.getJSON('/' + $('body').attr('id') + '/list').done(function(json){
+			replaceList(json);
+			$('#newbook').focus();
+		}).fail(function(XMLHttpRequest, textStatus, errorThrown){
+			if(XMLHttpRequest.status == 408){
+				retryShowList(0);
+			}
+		});
+	}
+
+	/*
+	 * init recent list
+	 */
+	$.each(loadRecentList(), function(){
+		$('#recent-list').append(
+			$('<li>').append(
+				$('<a>').attr('href', '/' + this).text(this)
+			)
+		);
 	});
+
+	/*
+	 * maintain recent list
+	 */
+	addRecentList($('body').attr('id'));
 
 	/*
 	 * add new book
