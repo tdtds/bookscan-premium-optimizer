@@ -39,7 +39,7 @@ $(function(){
 				var $book = $('<div>').addClass('book').attr('id', 'isbn-' + this.isbn);
 				var $delete = $('<a>').addClass('delete-book').attr('href', '#').text('×');
 				var $title = $('<span>').text(this.title);
-				var $link = $('<a>').attr('href', this.url).append($title);
+				var $link = $('<a>').attr('href', this.url).attr('target', '_blank').append($title);
 				var $pages = $('<span>').addClass('pages').text(this.pages);
 				$book.append($delete).append($link).append($pages);
 				$box.append($book);
