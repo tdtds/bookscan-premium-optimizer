@@ -34,7 +34,7 @@ describe 'BookscanPremiumOptimizer::Amazon' do
 			expect(@fail_book.xml).not_to match /<NumberOfPages>/
 		}
 		it('#pages') {
-			expect(@fail_book.pages).to eq nil
+			expect{@fail_book.pages}.to raise_error(BookscanPremiumOptimizer::AmazonError)
 		}
 	end
 end

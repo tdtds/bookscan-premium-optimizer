@@ -11,6 +11,7 @@ module BookscanPremiumOptimizer
 
 		field :name, type: String
 		field :isbns, type: Array
+		field :title, type: String
 
 		def self.new_list(title = '')
 			candidate = create(title: title, isbns: [])

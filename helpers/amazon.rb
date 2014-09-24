@@ -28,9 +28,12 @@ module BookscanPremiumOptimizer
 			@xml = build_url(isbn, aid)
 			@doc = REXML::Document::new(@xml).root.elements
 
-			pages()
-			title()
-			url()
+			begin
+				pages()
+				title()
+				url()
+			rescue
+			end
 		end
 
 		def isbn
