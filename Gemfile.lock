@@ -12,9 +12,9 @@ GEM
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     backports (3.6.4)
-    bson (1.11.1)
-    bson_ext (1.11.1)
-      bson (~> 1.11.1)
+    bson (1.12.0)
+    bson_ext (1.12.0)
+      bson (~> 1.12.0)
     builder (3.0.4)
     coderay (1.1.0)
     daemons (1.1.9)
@@ -76,7 +76,7 @@ GEM
       eventmachine (~> 1.0)
       rack (~> 1.0)
     tilt (1.4.1)
-    tzinfo (0.3.42)
+    tzinfo (0.3.43)
 
 PLATFORMS
   ruby
