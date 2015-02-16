@@ -20,7 +20,7 @@ GEM
     daemons (1.1.9)
     dalli (2.7.2)
     diff-lcs (1.2.5)
-    eventmachine (1.0.6)
+    eventmachine (1.0.7)
     haml (4.0.6)
       tilt
     i18n (0.7.0)
