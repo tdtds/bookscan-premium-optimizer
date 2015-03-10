@@ -31,7 +31,7 @@ GEM
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
     moped (1.5.2)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     origin (1.1.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
