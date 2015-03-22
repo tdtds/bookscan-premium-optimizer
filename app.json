@@ -1,0 +1,12 @@
+{
+  "name":"bookscan-premium-optimizer",
+  "scripts":{},
+  "env":{
+    "LANG":"ja_JP.UTF-8",
+    "RACK_ENV":"production"
+  },
+  "addons":[
+    "memcachier",
+    "mongolab"
+  ]
+}
