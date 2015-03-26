@@ -14,6 +14,7 @@ module BookscanPremiumOptimizer
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
 
+		set :assets_compile, true
 		register Sinatra::AssetPipeline
 		if defined?(RailsAssets)
 			RailsAssets.load_paths.each do |path|
