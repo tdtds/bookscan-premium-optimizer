@@ -15,6 +15,8 @@ module BookscanPremiumOptimizer
 		enable :logging
 
 		set :assets_precompile, %w(application.js application.css *.png *.jpg *.svg)
+		set :assets_css_compressor, :yui
+		set :assets_js_compressor, :uglifier
 		register Sinatra::AssetPipeline
 		if defined?(RailsAssets)
 			RailsAssets.load_paths.each do |path|

@@ -31,6 +31,7 @@ GEM
       tilt
     hike (1.2.3)
     i18n (0.7.0)
+    json (1.8.2)
     method_source (0.8.2)
     mongoid (3.1.6)
       activemodel (~> 3.2)
@@ -105,6 +106,10 @@ GEM
       rack (~> 1.0)
     tilt (1.4.1)
     tzinfo (0.3.43)
+    uglifier (2.7.1)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
+    yui-compressor (0.12.0)
 
 PLATFORMS
   ruby
@@ -125,3 +130,5 @@ DEPENDENCIES
   sinatra-asset-pipeline
   sinatra-reloader
   thin
+  uglifier
+  yui-compressor
