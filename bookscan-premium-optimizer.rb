@@ -1,12 +1,8 @@
 #
 # bookscan-premium-optimizer.rb
 #
-require 'sinatra/base'
-require 'haml'
+Bundler.require
 require 'json'
-require 'mongoid'
-require 'rack/csrf'
-require 'dalli'
 
 require_relative 'helpers/amazon'
 require_relative 'helpers/book'
@@ -17,6 +13,14 @@ module BookscanPremiumOptimizer
 	class App < Sinatra::Base
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
+
+		set :assets_precompile, %w(application.js application.css *.png *.jpg *.svg)
+		register Sinatra::AssetPipeline
+		if defined?(RailsAssets)
+			RailsAssets.load_paths.each do |path|
+				settings.sprockets.append_path(path)
+			end
+		end
 
 		configure :production do
 			Mongoid::Config.load_configuration({

@@ -3,9 +3,7 @@
 	%head
 		%meta{charset: 'UTF-8'}
 		%title BOOKSCAN Premium Optimizer
-		%script{src: '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'}
-		%script{src: '/js/main.js'}
-		%link{rel: 'stylesheet', href: '/css/main.css', type: 'text/css'}
+		!= stylesheet_tag 'application'
 	%body{id: booklist_id}
 		%h1 BOOKSCAN Premium Optimizer
 		#main
@@ -23,3 +21,4 @@
 				リストから外したい本があれば、題名の左にある[×]を押して下さい。
 			%p.desc
 				このページをブックマークしておくと、あとで再利用できます。
+		!= javascript_tag 'application'

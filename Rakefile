@@ -1,16 +1,19 @@
+require 'rubygems'
+require 'rake'
+
 begin
-	require 'rubygems'
-	require 'rake'
 	require 'rspec/core/rake_task'
-	
-	task :default => [:spec]
-	
 	desc 'Run the code in specs'
 	RSpec::Core::RakeTask.new(:spec) do |t|
 		t.pattern = "spec/**/*_spec.rb"
 	end
-rescue LoadError
+	task :default => [:spec]
+rescue LoadError => e
 end
+
+require 'sinatra/asset_pipeline/task'
+require './bookscan-premium-optimizer'
+Sinatra::AssetPipeline::Task.define! BookscanPremiumOptimizer::App
 
 # Local Variables:
 # mode: ruby
