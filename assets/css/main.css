@@ -79,7 +79,6 @@ h1.top {
 	font-size: small;
 }
 
-#message {
-	display: none;
+.message {
 	color: #d00;
 }

@@ -14,7 +14,7 @@ module BookscanPremiumOptimizer
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
 
-		set :assets_precompile, %w(application.js application.css *.png *.jpg *.svg)
+		set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg)
 		set :assets_css_compressor, :yui
 		set :assets_js_compressor, :uglifier
 		register Sinatra::AssetPipeline

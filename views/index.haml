@@ -3,7 +3,7 @@
 	%head
 		%meta{charset: 'UTF-8'}
 		%title BOOKSCAN Premium Optimizer
-		!= stylesheet_tag 'application'
+		!= stylesheet_tag 'app'
 	%body
 		%h1.top BOOKSCAN Premium Optimizer
 		#main
@@ -22,5 +22,5 @@
 				%input{type: 'submit', value: '新しいリストを作る'}
 			%p.desc
 				最近利用したリスト:
-			%ul#recent-list
-		!= javascript_tag 'application'
+			#recent-list
+		!= javascript_tag 'app'
