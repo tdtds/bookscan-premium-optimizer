@@ -25,7 +25,7 @@ GEM
     daemons (1.2.3)
     dalli (2.7.4)
     diff-lcs (1.2.5)
-    eventmachine (1.0.7)
+    eventmachine (1.0.8)
     execjs (2.5.2)
     haml (4.0.6)
       tilt
