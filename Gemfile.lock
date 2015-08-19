@@ -26,8 +26,8 @@ GEM
     dalli (2.7.4)
     diff-lcs (1.2.5)
     eventmachine (1.0.8)
-    execjs (2.5.2)
-    haml (4.0.6)
+    execjs (2.6.0)
+    haml (4.0.7)
       tilt
     hike (1.2.3)
     i18n (0.7.0)
@@ -142,3 +142,6 @@ DEPENDENCIES
   thin
   uglifier
   yui-compressor
+
+BUNDLED WITH
+   1.10.6
