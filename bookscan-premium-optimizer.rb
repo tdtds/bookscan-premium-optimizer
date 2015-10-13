@@ -25,8 +25,9 @@ module BookscanPremiumOptimizer
 		end
 
 		configure :production do
+			Mongo::Logger.level = Logger::WARN
 			Mongoid::Config.load_configuration({
-				sessions: {default: {uri: ENV['MONGOLAB_URI']}}
+				clients: {default: {uri: ENV['MONGOLAB_URI']}}
 			})
 			set :cache, Dalli::Client.new(
 				ENV["MEMCACHIER_SERVERS"],
@@ -40,8 +41,9 @@ module BookscanPremiumOptimizer
 			register Sinatra::Reloader
 			disable :protection
 			set :logging, ::Logger::DEBUG
+			Mongo::Logger.level = Logger::WARN
 			Mongoid::Config.load_configuration({
-				sessions: {default: {uri: 'mongodb://localhost:27017/bpo'}}
+				clients: {default: {uri: 'mongodb://localhost:27017/bpo'}}
 			})
 			set :cache, Dalli::Client.new(nil, :expires_in => 24 * 60 * 60)
 		end
