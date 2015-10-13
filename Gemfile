@@ -19,7 +19,7 @@ gem 'dalli', require: 'dalli'
 
 source 'https://rails-assets.org' do
 	gem 'rails-assets-jquery'
-	gem 'rails-assets-react'
+	gem 'rails-assets-react', '~> 0.13.0'
 end
 
 group :development, :test do
