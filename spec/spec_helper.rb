@@ -8,7 +8,7 @@ Bundler.require :test if defined?(Bundler)
 RSpec.configure do |config|
 	require 'mongoid'
 	Mongoid::Config.load_configuration({
-		sessions: {
+		clients: {
 			default: {
 				uri: 'mongodb://localhost:27017/bpo_test'
 			}
