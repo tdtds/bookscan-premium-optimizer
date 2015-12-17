@@ -25,7 +25,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     daemons (1.2.3)
-    dalli (2.7.4)
+    dalli (2.7.5)
     diff-lcs (1.2.5)
     eventmachine (1.0.8)
     execjs (2.6.0)
@@ -36,7 +36,7 @@ GEM
     json (1.8.3)
     method_source (0.8.2)
     minitest (5.8.3)
-    mongo (2.2.0)
+    mongo (2.2.1)
       bson (~> 4.0)
     mongoid (5.0.1)
       activemodel (~> 4.0)
@@ -150,4 +150,4 @@ DEPENDENCIES
   yui-compressor
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
