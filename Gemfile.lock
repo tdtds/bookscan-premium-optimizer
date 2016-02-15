@@ -15,7 +15,7 @@ GEM
     algorithm-genetic (0.0.1)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
-    backports (3.6.7)
+    backports (3.6.8)
     bson (4.0.1)
     bson_ext (1.5.1)
     builder (3.2.2)
@@ -25,7 +25,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     daemons (1.2.3)
-    dalli (2.7.5)
+    dalli (2.7.6)
     diff-lcs (1.2.5)
     eventmachine (1.0.9.1)
     execjs (2.6.0)
