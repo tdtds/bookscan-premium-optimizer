@@ -56,7 +56,7 @@ GEM
       rack (>= 1.0)
     rack_csrf (2.5.0)
       rack (>= 1.1.0)
-    rails-assets-jquery (2.2.2)
+    rails-assets-jquery (2.2.3)
     rails-assets-react (0.13.3)
     rake (10.5.0)
     react-jsx-sprockets (0.2.2)
@@ -90,7 +90,7 @@ GEM
       sprockets (~> 2.12)
       sprockets-helpers (~> 1.1)
       sprockets-sass (~> 1.2)
-    sinatra-contrib (1.4.6)
+    sinatra-contrib (1.4.7)
       backports (>= 2.0)
       multi_json
       rack-protection
