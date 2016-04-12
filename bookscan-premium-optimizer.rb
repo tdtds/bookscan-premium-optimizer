@@ -27,7 +27,7 @@ module BookscanPremiumOptimizer
 		configure :production do
 			Mongo::Logger.level = Logger::WARN
 			Mongoid::Config.load_configuration({
-				clients: {default: {uri: ENV['MONGOLAB_URI']}}
+				clients: {default: {uri: ENV['MONGODB_URI'] || ENV['MONGOLAB_URI']}}
 			})
 			set :cache, Dalli::Client.new(
 				ENV["MEMCACHIER_SERVERS"],
