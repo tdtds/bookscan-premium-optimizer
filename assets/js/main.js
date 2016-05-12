@@ -60,7 +60,7 @@ var RecentList = React.createClass({displayName: "RecentList",
 
 var recentList = document.getElementById('recent-list');
 if (recentList) {
-	React.render(React.createElement(RecentList, null), recentList);
+	ReactDOM.render(React.createElement(RecentList, null), recentList);
 }
 
 /*
@@ -191,7 +191,7 @@ var ISBNForm = React.createClass({displayName: "ISBNForm",
 		};
 	},
 	componentDidMount:function() {
-		this.refs.inputISBN.getDOMNode().focus();
+		this.refs.inputISBN.focus();
 	},
 	onChange:function(e) {
 		this.setState({isbn: e.target.value});
@@ -293,5 +293,5 @@ var Main = React.createClass({displayName: "Main",
 
 var contents = document.getElementById('contents');
 if (contents) {
-	React.render(React.createElement(Main, null), contents);
+	ReactDOM.render(React.createElement(Main, null), contents);
 }
