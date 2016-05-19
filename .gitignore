@@ -6,7 +6,8 @@
 InstalledFiles
 _yardoc
 coverage
-public/
+public/js/*.js*
+node_modules/
 doc/
 lib/bundler/man
 pkg

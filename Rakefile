@@ -11,15 +11,6 @@ begin
 rescue LoadError => e
 end
 
-require 'sinatra/asset_pipeline/task'
-require './bookscan-premium-optimizer'
-Sinatra::AssetPipeline::Task.define! BookscanPremiumOptimizer::App
-
-desc 'watch jsx'
-task :watch_jsx do
-	sh 'jsx -w -x jsx --harmony assets/jsx assets/js'
-end
-
 # Local Variables:
 # mode: ruby
 # indent-tabs-mode: t

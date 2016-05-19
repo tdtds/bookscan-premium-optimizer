@@ -14,16 +14,6 @@ module BookscanPremiumOptimizer
 		set :haml, {format: :html5, escape_html: true}
 		enable :logging
 
-		set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg)
-		set :assets_css_compressor, :yui
-		set :assets_js_compressor, :uglifier
-		register Sinatra::AssetPipeline
-		if defined?(RailsAssets)
-			RailsAssets.load_paths.each do |path|
-				settings.sprockets.append_path(path)
-			end
-		end
-
 		configure :production do
 			Mongo::Logger.level = Logger::WARN
 			Mongoid::Config.load_configuration({

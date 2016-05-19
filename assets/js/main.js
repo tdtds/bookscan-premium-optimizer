@@ -1,12 +1,17 @@
 /*
- * main.jsx
+ * main.js
  *
  * Copyright (C) 2015 by TADA Tadash <t@tdtds.jp>
  * You can modify and/or distribute this under GPL.
  */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import jQuery from 'jquery';
+
+require('../css/main.css');
 
 jQuery.ajaxSetup({
-	beforeSend:function(xhr) {
+	beforeSend(xhr) {
 		var token = jQuery('meta[name="_csrf"]').attr('content');
 		xhr.setRequestHeader('X_CSRF_TOKEN', token);
 	}
@@ -49,24 +54,24 @@ addRecentList(document.getElementsByTagName('body')[0].id);
 /*
  * react components for top page
  */
-var RecentList = React.createClass({displayName: "RecentList",
-	render:function() {
-		var lists = loadRecentList().map(function(list)  {
-			return React.createElement("li", {key: list}, React.createElement("a", {href: '/' + list}, list))
+var RecentList = React.createClass({
+	render() {
+		var lists = loadRecentList().map((list) => {
+			return <li key={list}><a href={'/' + list}>{list}</a></li>
 		});
-		return React.createElement("ul", null, lists)
+		return <ul>{lists}</ul>
 	}
 });
 
 var recentList = document.getElementById('recent-list');
 if (recentList) {
-	ReactDOM.render(React.createElement(RecentList, null), recentList);
+	ReactDOM.render(<RecentList />, recentList);
 }
 
 /*
  * react components for list page
  */
-var Book = React.createClass({displayName: "Book",
+var Book = React.createClass({
 	propTypes: {
 		book: React.PropTypes.shape({
 			isbn:  React.PropTypes.string.isRequied,
@@ -76,156 +81,156 @@ var Book = React.createClass({displayName: "Book",
 		}),
 		onDelete:   React.PropTypes.func.isRequired
 	},
-	getInitialState:function() {
+	getInitialState() {
 		return({deleteStyle: 'hidden'});
 	},
-	onMouseOver:function(e) {
+	onMouseOver(e) {
 		this.setState({deleteStyle: 'visible'});
 	},
-	onMouseOut:function(e) {
+	onMouseOut(e) {
 		this.setState({deleteStyle: 'hidden'});
 	},
-	_onDelete:function(e) {
+	_onDelete(e) {
 		e.preventDefault();
 		this.props.onDelete(this.props.book.isbn);
 	},
-	render:function() {
+	render() {
 		var book = this.props.book;
 		return(
-			React.createElement("div", {className: "book", onMouseOver: this.onMouseOver, onMouseOut: this.onMouseOut}, 
-				React.createElement("a", {className: "delete-book", style: {visibility: this.state.deleteStyle}, href: "#", onClick: this._onDelete}, "\u00D7"), 
-				React.createElement("a", {href: book.url, target: "_blank"}, React.createElement("span", null, book.title)), 
-				React.createElement("span", {className: "pages"}, book.pages)
-			)
+			<div className="book" onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+				<a className="delete-book" style={{visibility: this.state.deleteStyle}} href="#" onClick={this._onDelete}>{"\u00D7"}</a>
+				<a href={book.url} target="_blank"><span>{book.title}</span></a>
+				<span className="pages">{book.pages}</span>
+			</div>
 		);
 	}
 });
 
-var Box = React.createClass({displayName: "Box",
+var Box = React.createClass({
 	propTypes: {
 		onDelete:   React.PropTypes.func.isRequired
 	},
-	getInitialState:function() {
+	getInitialState() {
 		return {
 			count: 0,
 			pages: 0
 		};
 	},
-	componentDidMount:function() {
+	componentDidMount() {
 		this.updateCount(this.props);
 	},
-	componentWillReceiveProps:function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		this.updateCount(nextProps);
 	},
-	countBookSize:function(pages) {
+	countBookSize(pages) {
 		if(pages <= 350){
 			return 1;
 		}else{
 			return Math.ceil((pages - 350) / 200.0) + 1;
 		}
 	},
-	updateCount:function(props) {
+	updateCount(props) {
 		var count = 0, pages = 0;
-		props.books.map(function(book)  {
+		props.books.map((book) => {
 			count += this.countBookSize(book.pages);
 			pages += book.pages;
-		}.bind(this));
+		});
 		this.setState({count: count, pages: pages});
 	},
-	_onDelete:function(isbn) {
+	_onDelete(isbn) {
 		this.props.onDelete(isbn);
 	},
-	render:function() {
+	render() {
 		var colorClass = 'box-red';
 		if(this.state.count < 8) {
 			colorClass = 'box-green';
 		} else if(this.state.count < 10){
 			colorClass = 'box-yellow';
 		};
-		var books = this.props.books.map(function(book)  {
-			return React.createElement(Book, {book: book, key: "isbn-" + book.isbn, onDelete: this._onDelete})
-		}.bind(this));
+		var books = this.props.books.map((book) => {
+			return <Book book={book} key={"isbn-" + book.isbn} onDelete={this._onDelete} />
+		});
 		return(
-			React.createElement("div", {className: "box-border"}, React.createElement("div", {className: "box " + colorClass}, 
-				books, 
-				React.createElement("div", {className: "total-pages"}, this.state.count, "冊 / ", this.state.pages, "ページ")
-			))
+			<div className="box-border"><div className={"box " + colorClass}>
+				{books}
+				<div className="total-pages">{this.state.count}冊 / {this.state.pages}ページ</div>
+			</div></div>
 		);
 	}
 });
 
-var Boxes = React.createClass({displayName: "Boxes",
+var Boxes = React.createClass({
 	propTypes: {
 		onDelete: React.PropTypes.func.isRequired
 	},
-	getDefaultProps:function() {
+	getDefaultProps() {
 		return {
 			boxes: []
 		};
 	},
-	_onDelete:function(isbn) {
+	_onDelete(isbn) {
 		this.props.onDelete(isbn);
 	},
-	render:function() {
+	render() {
 		var count = 0;
-		var boxes = this.props.boxes.map(function(books)  {
-			return React.createElement(Box, {books: books, key: "key-" + ++count, onDelete: this._onDelete})
-		}.bind(this));
-		return React.createElement("div", {className: "boxes"}, boxes);
+		var boxes = this.props.boxes.map((books) => {
+			return <Box books={books} key={"key-" + ++count} onDelete={this._onDelete} />
+		});
+		return <div className="boxes">{boxes}</div>;
 	}
 });
 
-var ISBNForm = React.createClass({displayName: "ISBNForm",
+var ISBNForm = React.createClass({
 	propTypes: {
 		onSubmit:   React.PropTypes.func.isRequired,
 		submitable: React.PropTypes.bool,
 		message:    React.PropTypes.string
 	},
-	getInitialState:function() {
+	getInitialState() {
 		return {isbn: ""};
 	},
-	getDefaultProps:function() {
+	getDefaultProps() {
 		return {
 			submitable: true,
 			message: ""
 		};
 	},
-	componentDidMount:function() {
+	componentDidMount() {
 		this.refs.inputISBN.focus();
 	},
-	onChange:function(e) {
+	onChange(e) {
 		this.setState({isbn: e.target.value});
 	},
-	onClick:function(e) {
+	onClick(e) {
 		e.preventDefault();
 		if(this.state.isbn.length > 0) {
 			this.props.onSubmit(this.state.isbn);
 			this.setState({isbn: ""});
 		};
 	},
-	render:function() {
+	render() {
 		return(
-			React.createElement("form", null, 
-				React.createElement("input", {ref: "inputISBN", placeholder: "ISBN", value: this.state.isbn, onChange: this.onChange}), 
-				React.createElement("input", {type: "submit", disabled: !this.props.submitable, value: "+", onClick: this.onClick}), 
-				React.createElement("span", {className: "message"}, this.props.message)
-			)
+			<form>
+				<input ref="inputISBN" placeholder="ISBN" value={this.state.isbn} onChange={this.onChange} />
+				<input type="submit" disabled={!this.props.submitable} value="+" onClick={this.onClick}/>
+				<span className="message">{this.props.message}</span>
+			</form>
 		);
 	}
 });
 
-var Main = React.createClass({displayName: "Main",
-	getInitialState:function() {
+var Main = React.createClass({
+	getInitialState() {
 		return {
 			boxes: [],
 			submitable: true,
 			message: ''
 		};
 	},
-	componentDidMount:function() {
+	componentDidMount() {
 		this.getRecentData(0);
 	},
-	getRecentData:function(retryCount) {
+	getRecentData(retryCount) {
 		if(retryCount >= 100) {
 			return false;
 		}
@@ -237,22 +242,22 @@ var Main = React.createClass({displayName: "Main",
 				type: 'GET',
 				dataType: 'json',
 				cache: false
-			}).done(function(json)  {
+			}).done((json) => {
 				component.setState({boxes: json});
-			}).fail(function(XMLHttpRequest, textStatus, errorThrown)  {
+			}).fail((XMLHttpRequest, textStatus, errorThrown) => {
 				component.getRecentData(++retryCount);
 			});
 		}, 1000);
 		return true;
 	},
-	showMessage:function(message, autoHide) {
+	showMessage(message, autoHide) {
 		var component = this;
 		component.setState({message: message});
 		if(autoHide) {
 			setTimeout(function(){component.setState({message: ""})}, 500);
 		}
 	},
-	onSubmit:function(isbn) {
+	onSubmit(isbn) {
 		var component = this;
 		component.showMessage("", false);
 		component.setState({submitable: false});
@@ -271,7 +276,7 @@ var Main = React.createClass({displayName: "Main",
 			}
 		});
 	},
-	onDelete:function(isbn) {
+	onDelete(isbn) {
 		var component = this;
 		jQuery.ajax({
 			type: 'DELETE',
@@ -281,17 +286,17 @@ var Main = React.createClass({displayName: "Main",
 			component.setState({boxes: json});
 		});
 	},
-	render:function() {
+	render() {
 		return(
-			React.createElement("div", {className: "main"}, 
-				React.createElement(Boxes, {boxes: this.state.boxes, onDelete: this.onDelete}), 
-				React.createElement(ISBNForm, {onSubmit: this.onSubmit, submitable: this.state.submitable, message: this.state.message})
-			)
+			<div className="main">
+				<Boxes boxes={this.state.boxes} onDelete={this.onDelete} />
+				<ISBNForm onSubmit={this.onSubmit} submitable={this.state.submitable} message={this.state.message} />
+			</div>
 		);
 	}
 });
 
 var contents = document.getElementById('contents');
 if (contents) {
-	ReactDOM.render(React.createElement(Main, null), contents);
+	ReactDOM.render(<Main />, contents);
 }
