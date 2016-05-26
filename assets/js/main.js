@@ -22,6 +22,7 @@ jQuery.ajaxSetup({
  * top page
  */
 import RecentList from './recent_list';
+import {addRecentList} from './util';
 
 var recentList = document.getElementById('recent-list');
 if (recentList) {
@@ -33,7 +34,6 @@ if (recentList) {
  */
 import Boxes from './boxes';
 import ISBNForm from './isbn_form';
-import {loadRecentList, addRecentList} from './util';
 
 addRecentList(document.getElementsByTagName('body')[0].id);
 
