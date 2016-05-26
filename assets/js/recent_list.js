@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {loadRecentList} from './util';
 
 var RecentList = React.createClass({
 	render() {
@@ -13,3 +14,4 @@ var RecentList = React.createClass({
 	}
 });
 
+export default RecentList;
