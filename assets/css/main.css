@@ -82,3 +82,10 @@ h1.top {
 .message {
 	color: #d00;
 }
+
+@keyframes blink {
+	75% { opacity: 0.0; }
+}
+.blink {
+	animation: blink 1s step-end infinite;
+}

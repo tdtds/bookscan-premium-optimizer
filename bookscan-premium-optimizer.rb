@@ -106,6 +106,8 @@ module BookscanPremiumOptimizer
 			begin
 				a = amazon(isbn, false)
 				candidate.add(a.isbn)
+
+				content_type :json
 				return booklist(candidate, false).to_json
 			rescue AmazonError
 				return 404
@@ -127,6 +129,7 @@ module BookscanPremiumOptimizer
 			return 404 unless candidate
 
 			begin
+				content_type :json
 				return booklist(candidate).to_json
 			rescue AmazonTimeout
 				return 408 # Timeout
