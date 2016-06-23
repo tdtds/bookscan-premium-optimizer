@@ -1,30 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+/*
+ * box.js - a box component contains books
+ */
+import * as React from 'react';
+import {Component} from 'flumpt';
 import Book from './book';
 
-var Box = React.createClass({
-	propTypes: {
-		onDelete:   React.PropTypes.func.isRequired
-	},
-	getInitialState() {
-		return {
-			count: 0,
-			pages: 0
-		};
-	},
+export default class Box extends Component {
+	constructor(...args) {
+		super(...args);
+		this.state = {count: 0, pages: 0};
+	}
+
 	componentDidMount() {
 		this.updateCount(this.props);
-	},
+	}
+
 	componentWillReceiveProps(nextProps) {
 		this.updateCount(nextProps);
-	},
+	}
+
 	countBookSize(pages) {
 		if(pages <= 350){
 			return 1;
 		}else{
 			return Math.ceil((pages - 350) / 200.0) + 1;
 		}
-	},
+	}
+
 	updateCount(props) {
 		var count = 0, pages = 0;
 		props.books.map((book) => {
@@ -32,10 +34,8 @@ var Box = React.createClass({
 			pages += book.pages;
 		});
 		this.setState({count: count, pages: pages});
-	},
-	_onDelete(isbn) {
-		this.props.onDelete(isbn);
-	},
+	}
+
 	render() {
 		var colorClass = 'box-red';
 		if(this.state.count < 8) {
@@ -44,7 +44,7 @@ var Box = React.createClass({
 			colorClass = 'box-yellow';
 		};
 		var books = this.props.books.map((book) => {
-			return <Book book={book} key={"isbn-" + book.isbn} onDelete={this._onDelete} />
+			return <Book book={book} key={"isbn-" + book.isbn} />
 		});
 		return(
 			<div className="box-border"><div className={"box " + colorClass}>
@@ -53,6 +53,4 @@ var Box = React.createClass({
 			</div></div>
 		);
 	}
-});
-
-export default Box;
+}
