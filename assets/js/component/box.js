@@ -4,6 +4,7 @@
 import * as React from 'react';
 import {Component} from 'flumpt';
 import Book from './book';
+import {MuiThemeProvider, TextField, FloatingActionButton} from 'material-ui';
 
 export default class Box extends Component {
 	constructor(...args) {

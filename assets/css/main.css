@@ -6,21 +6,18 @@
  */
 
 body {
-	background-color: #EBE0D6;
-}
-
-h1 {
-	font-size: medium;
-}
-
-h1.top {
-	font-size: x-large;
-	text-align: center;
+	margin: 0px;
+	padding: 0px;
 }
 
 #main {
 	margin: 0 auto;
 	max-width: 900px;
+}
+
+p.desc {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
 }
 
 #new-list {
@@ -33,37 +30,48 @@ h1.top {
 	padding: 8px;
 }
 
+.boxes {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
 .box-border {
-	background-color: #fefefe;
 	border-style: solid;
-	border-color: #000;
+	border-color: #ccc;
 	border-width: 1px;
-	border-radius: 4px;
+	border-radius: 2px;
 	margin: 0.8em 0em;
+	box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
 }
 
 .box {
 	border-style: solid;
 	border-width: 0px 0px 0px 8px;
-	border-radius: 4px;
+	border-radius: 1px;
 	padding: 8px;
 }
 
 .box-green {
-	border-color: green;
+	border-color: #000 #8f8;
 }
 
 .box-yellow {
-	border-color: #000 yellow;
+	border-color: #000 #ff8;
 }
 
 .box-red {
-	border-color: #000 red;
+	border-color: #000 #f88;
 }
 
 .delete-book {
 	visibility: hidden;
 	margin-right: 0.5em;
+	text-decoration: none;
+}
+
+.book-title {
+	color: #00bcd4;
+	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -79,7 +87,13 @@ h1.top {
 	font-size: small;
 }
 
+.isbn-form {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
 .message {
+	padding-left: 1em;
 	color: #d00;
 }
 

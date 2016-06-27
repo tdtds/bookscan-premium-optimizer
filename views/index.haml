@@ -2,11 +2,12 @@
 %html
 	%head
 		%meta{charset: 'UTF-8'}
+		%meta{name: "viewport", content: "width=device-width,initial-scale=1"}
 		%title BOOKSCAN Premium Optimizer
 		%link{rel:"stylesheet", href:"/css/index.css", media:"all"}
 	%body
-		%h1.top BOOKSCAN Premium Optimizer
 		#main
+			%h1.top BOOKSCAN Premium Optimizer
 			%p.desc
 				BOOKSCANのプレミアムサービスの制限に合わせて、一箱に収まる
 				ちょうど良い冊数を計算してくれるWebサービスです。
@@ -18,9 +19,4 @@
 			%p.desc
 				現在サポートしているのはBOOKSCANのプレミアム・ライト(1回10冊相当)です。
 				スタンダードプランの50冊には対応していません。
-			%form#new-list{method: 'post', action: '/'}
-				%input{type: 'submit', value: '新しいリストを作る'}
-			%p.desc
-				最近利用したリスト:
-			#recent-list
 		%script{src: "/js/index.js"}

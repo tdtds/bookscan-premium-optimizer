@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import {Component} from 'flumpt';
+import {MuiThemeProvider, TextField, FloatingActionButton} from 'material-ui';
 
 export const DELETE_BOOK = "delete-book";
 
@@ -39,7 +40,7 @@ export default class Book extends Component {
 						onClick={(e) => this.onDelete(e)}>
 					{"\u00D7"}
 				</a>
-				<a href={book.url} target="_blank"><span>{book.title}</span></a>
+				<a className="book-title" href={book.url} target="_blank">{book.title}</a>
 				<span className="pages">{book.pages}</span>
 			</div>
 		);

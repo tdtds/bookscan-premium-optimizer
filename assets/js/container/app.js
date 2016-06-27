@@ -9,6 +9,7 @@ import {Flux} from 'flumpt';
 import Boxes from '../component/boxes';
 import ISBNForm, {SUBMIT_ISBN} from '../component/isbn_form';
 import {DELETE_BOOK} from '../component/book';
+import {MuiThemeProvider, AppBar} from 'material-ui';
 
 export default class App extends Flux {
 	subscribe() {
@@ -70,9 +71,23 @@ export default class App extends Flux {
 
 	render(state) {
 		return(
-			<div className="main">
+			<div>
+				<MuiThemeProvider>
+					<AppBar className='top' title='BOOKSCAN Premium Optimizer' iconStyleLeft={{display: 'none'}} />
+				</MuiThemeProvider>
 				<Boxes boxes={state.boxes} />
 				<ISBNForm input={state.input} />
+				<p className='desc'>
+					上のISBNの欄にスキャンしたい本のISBN番号を入力し、[+]を押します。
+					少し待つと上にその本のタイトルとページ数が表示されます。
+					続いて他の本を追加しましょう。ひとつの枠に収まっている限りは、
+					プレミアム・ライトの10冊相当以内です。
+					あふれたら新しい枠が作られて、あふれた分の本が入ります。
+					リストから外したい本があれば、題名の左にある[×]を押して下さい。
+				</p>
+				<p className='desc'>
+					このページをブックマークしておくと、あとで再利用できます。
+				</p>
 			</div>
 		);
 	}
