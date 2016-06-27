@@ -3,6 +3,8 @@
  */
 import * as React from 'react';
 import {Component} from 'flumpt';
+import {MuiThemeProvider, TextField, FloatingActionButton} from 'material-ui';
+import {ContentAdd} from 'material-ui/svg-icons';
 
 export const SUBMIT_ISBN = "submit-isbn";
 
@@ -28,9 +30,15 @@ export default class ISBNForm extends Component {
 		const input = this.props.input;
 
 		return(
-			<form>
-				<input ref="inputISBN" placeholder="ISBN" value={this.state.isbn} onChange={(e) => this.setState({isbn: e.target.value})} />
-				<input type="submit" disabled={!input.submittable} value="+" onClick={(e) => this.submit(e)}/>
+			<form className="isbn-form">
+				<MuiThemeProvider>
+					<TextField ref="inputISBN" hintText="ISBN" value={this.state.isbn} onChange={(e) => this.setState({isbn: e.target.value})} />
+				</MuiThemeProvider>
+				<MuiThemeProvider>
+					<FloatingActionButton type='submit' mini={true} disabled={!input.submittable} onClick={(e) => this.submit(e)}>
+						<ContentAdd />
+					</FloatingActionButton>
+				</MuiThemeProvider>
 				<span className={input.blink ? 'message blink' : 'message'}>{input.message}</span>
 			</form>
 		);

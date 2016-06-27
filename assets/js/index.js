@@ -15,7 +15,7 @@ require('../css/main.css');
 
 const app = new RecentList({
 	renderer: el => {
-		render(el, document.querySelector('#recent-list'));
+		render(el, document.querySelector('#main'));
 	},
 	initialState: {lists: []}
 });
