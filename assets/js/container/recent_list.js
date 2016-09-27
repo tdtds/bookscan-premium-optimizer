@@ -47,5 +47,3 @@ export default class RecentList extends Flux {
 		);
 	}
 };
-
-export default RecentList;
