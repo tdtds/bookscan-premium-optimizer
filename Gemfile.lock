@@ -2,14 +2,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     ZenTest (4.11.1)
-    activemodel (4.2.7.1)
-      activesupport (= 4.2.7.1)
-      builder (~> 3.1)
-    activesupport (4.2.7.1)
+    activemodel (5.0.0.1)
+      activesupport (= 5.0.0.1)
+    activesupport (5.0.0.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     algorithm-genetic (0.0.1)
     autotest (4.4.6)
@@ -17,8 +15,8 @@ GEM
     backports (3.6.8)
     bson (4.1.1)
     bson_ext (1.5.1)
-    builder (3.2.2)
     coderay (1.1.1)
+    concurrent-ruby (1.0.2)
     daemons (1.2.4)
     dalli (2.7.6)
     diff-lcs (1.2.5)
@@ -26,18 +24,14 @@ GEM
     haml (4.0.7)
       tilt
     i18n (0.7.0)
-    json (1.8.3)
     method_source (0.8.2)
-    minitest (5.9.0)
+    minitest (5.9.1)
     mongo (2.3.0)
       bson (~> 4.1)
-    mongoid (5.1.4)
-      activemodel (~> 4.0)
-      mongo (~> 2.1)
-      origin (~> 2.2)
-      tzinfo (>= 0.3.37)
+    mongoid (6.0.0)
+      activemodel (~> 5.0)
+      mongo (~> 2.3)
     multi_json (1.12.1)
-    origin (2.2.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -49,7 +43,7 @@ GEM
       rack (>= 1.0)
     rack_csrf (2.5.0)
       rack (>= 1.1.0)
-    rake (11.2.2)
+    rake (11.3.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -95,7 +89,7 @@ DEPENDENCIES
   bson_ext
   dalli
   haml
-  mongoid (~> 5.0)
+  mongoid (~> 6.0)
   pry
   rack_csrf
   rake
@@ -104,5 +98,8 @@ DEPENDENCIES
   sinatra-reloader
   thin
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.12.4
+   1.12.5
