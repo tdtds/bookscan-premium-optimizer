@@ -13,7 +13,7 @@ GEM
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     backports (3.6.8)
-    bson (4.1.1)
+    bson (4.2.0)
     bson_ext (1.5.1)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
@@ -25,10 +25,10 @@ GEM
       tilt
     i18n (0.7.0)
     method_source (0.8.2)
-    minitest (5.9.1)
-    mongo (2.3.1)
-      bson (~> 4.1)
-    mongoid (6.0.2)
+    minitest (5.10.1)
+    mongo (2.4.0)
+      bson (~> 4.2.0)
+    mongoid (6.0.3)
       activemodel (~> 5.0)
       mongo (~> 2.3)
     multi_json (1.12.1)
@@ -97,9 +97,6 @@ DEPENDENCIES
   sinatra
   sinatra-reloader
   thin
-
-RUBY VERSION
-   ruby 2.3.3p222
 
 BUNDLED WITH
    1.13.6
