@@ -5,7 +5,7 @@ ruby '~> 2.4.0'
 gem 'sinatra', require: 'sinatra/base'
 
 gem 'thin'
-gem 'haml', require: 'haml'
+gem 'hamlit', require: 'hamlit'
 gem 'mongoid', '~> 6.0', require: 'mongoid' 
 gem 'bson_ext'
 gem 'rack_csrf', require: 'rack/csrf'

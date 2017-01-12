@@ -11,7 +11,7 @@ require_relative 'models/candidate'
 
 module BookscanPremiumOptimizer
 	class App < Sinatra::Base
-		set :haml, {format: :html5, escape_html: true}
+		set :haml, {format: :html5}
 		enable :logging
 
 		configure :production do
