@@ -3,7 +3,7 @@ cache: bundler
 bundler_args: --without development
 
 before_install:
-  - gem install bundler -v '> 1.5.0'
+  - gem install bundler -v '> 1.13.0'
 
 rvm:
   - 2.4.0
