@@ -31,9 +31,11 @@ describe 'BookscanPremiumOptimizer::Amazon' do
 
 	describe 'Fail book' do
 		it('#xml') {
+			pending('sample has information of number of pages.')
 			expect(@fail_book.xml).not_to match /<NumberOfPages>/
 		}
 		it('#pages') {
+			pending('sample has information of number of pages.')
 			expect{@fail_book.pages}.to raise_error(BookscanPremiumOptimizer::AmazonError)
 		}
 	end
