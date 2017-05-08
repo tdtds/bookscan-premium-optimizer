@@ -2,9 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     ZenTest (4.11.1)
-    activemodel (5.0.2)
-      activesupport (= 5.0.2)
-    activesupport (5.0.2)
+    activemodel (5.1.0)
+      activesupport (= 5.1.0)
+    activesupport (5.1.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -12,7 +12,7 @@ GEM
     algorithm-genetic (0.0.1)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
-    backports (3.7.0)
+    backports (3.8.0)
     bson (4.2.1)
     bson_ext (1.5.1)
     coderay (1.1.1)
