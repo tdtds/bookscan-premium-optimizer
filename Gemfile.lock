@@ -25,7 +25,7 @@ GEM
       temple (>= 0.8.0)
       thor
       tilt
-    i18n (0.8.1)
+    i18n (0.8.4)
     method_source (0.8.2)
     minitest (5.10.2)
     mongo (2.4.2)
