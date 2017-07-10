@@ -13,7 +13,7 @@ GEM
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     backports (3.8.0)
-    bson (4.2.1)
+    bson (4.2.2)
     bson_ext (1.5.1)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
@@ -25,7 +25,7 @@ GEM
       temple (>= 0.8.0)
       thor
       tilt
-    i18n (0.8.4)
+    i18n (0.8.6)
     method_source (0.8.2)
     minitest (5.10.2)
     mongo (2.4.2)
@@ -74,7 +74,7 @@ GEM
       sinatra-contrib
     slop (3.6.0)
     temple (0.8.0)
-    thin (1.7.1)
+    thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
