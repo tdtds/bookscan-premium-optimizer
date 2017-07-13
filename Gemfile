@@ -4,7 +4,7 @@ ruby '~> 2.4.0'
 
 gem 'sinatra', require: 'sinatra/base'
 
-gem 'thin'
+gem 'puma'
 gem 'hamlit', require: 'hamlit'
 gem 'mongoid', '~> 6.0', require: 'mongoid' 
 gem 'bson_ext'
