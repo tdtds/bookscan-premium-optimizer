@@ -40,7 +40,7 @@ module BookscanPremiumOptimizer
 			begin
 				return @isbn ||= (@doc.to_a('*/Item/*/EAN').first || @doc.to_a('*/Item/*/ISBN').first).text
 			rescue NoMethodError
-				raise AmazonError.new('no ISBN')
+				raise BookscanPremiumOptimizer::AmazonError.new('no ISBN')
 			end
 		end
 
@@ -48,7 +48,7 @@ module BookscanPremiumOptimizer
 			begin
 				return @pages ||= @doc.to_a('*/Item/*/NumberOfPages').first.text.to_i
 			rescue NoMethodError
-				raise AmazonError.new('no pages')
+				raise BookscanPremiumOptimizer::AmazonError.new('no pages')
 			end
 		end
 
@@ -56,7 +56,7 @@ module BookscanPremiumOptimizer
 			begin
 				return @title ||= @doc.to_a('*/Item/*/Title').first.text
 			rescue NoMethodError
-				raise AmazonError.new('no title')
+				raise BookscanPremiumOptimizer::AmazonError.new('no title')
 			end
 		end
 
@@ -64,7 +64,7 @@ module BookscanPremiumOptimizer
 			begin
 				return @url ||= @doc.to_a('*/Item/DetailPageURL').first.text
 			rescue NoMethodError
-				raise AmazonError.new('no URL')
+				raise BookscanPremiumOptimizer::AmazonError.new('no URL')
 			end
 		end
 
@@ -96,10 +96,10 @@ module BookscanPremiumOptimizer
 					xml = open(url, &:read)
 				}
 			rescue Timeout::Error
-				raise AmazonError('timeout')
+				raise BookscanPremiumOptimizer::AmazonError('timeout')
 			rescue OpenURI::HTTPError
 				retry_count += 1
-				raise AmazonError('retry over') if retry_count >= 5
+				raise BookscanPremiumOptimizer::AmazonError('retry over') if retry_count >= 5
 				retry
 			end
 		end
